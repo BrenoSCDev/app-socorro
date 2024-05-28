@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { TouchableOpacity, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/home';
@@ -12,9 +13,23 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerTitle: 'Quem pode te ajudar?',
+            headerRight: () => (
+              <TouchableOpacity
+                style={{ marginRight: 15 }}
+                onPress={() => navigation.navigate('Profile')}
+              >
+                <Text style={{ fontSize: 16, color: 'blue' }}>Perfil</Text>
+              </TouchableOpacity>
+            ),
+          }}
+        />
       </Stack.Navigator>
       <Toast />
     </NavigationContainer>
